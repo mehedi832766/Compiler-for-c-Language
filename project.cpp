@@ -38,7 +38,94 @@ string espace(string s)
     return s1;
 }
 
+string cmtout(string s)
+{
+    for (int i = 0; i < s.length(); i++)
+    {
+        if (s[i] == '/' && s[i + 1] == '/' && s[i + 2] == '/')
+        {
+            int k = 0, m = i - 1;
+            while (s[i] != '\n')
+            {
+                k++, i++;
+            }
+            s.erase(m, k + 1);
+            i = i - k;
+        }
+        else
+        {
+            continue;
+        }
+    }
 
+    // cout<<s<<endl;
+    return espace(s);
+}
+
+int valvar(string s)
+{
+
+    int f = 0,i;
+    if (s == "auto" || s == "break" || s == "case" || s == "char" || s == "const" || s == "continue" || s == "default" || s == "do" || s == "double" || s == "else" || s == "enum" || s == "extern" || s == "float" || s == "for" || s == "goto" || s == "if" || s == "int" || s == "long" || s == "register" || s == "return" || s == "short" || s == "signed" || s == "sizeof" || s == "static" || s == "struct" || s == "switch" || s == "typedef" || s == "union" || s == "unsigned" || s == "void" || s == "volatile" || s == "while")
+    {
+        cout << s << " is invalid" << endl;
+        return 1;
+    }
+    else if (s == "main()")
+    {
+        f = 0;
+    }
+
+    else if (s[0] >= 65 && s[0] <= 90 || s[0] >= 97 && s[0] <= 122 || s[0] == '_')
+    {
+        for ( i = 1; s[i] != '\0'; i++)
+        {
+            if (s[i] >= 65 && s[i] <= 90 || s[i] >= 97 && s[i] <= 122 || s[i] == '_' || s[i] >= 48 && s[i] <= 57)
+            {
+                continue;
+            }
+            else
+            {
+                f++;
+                break;
+            }
+        }
+        if (f == 0)
+        {
+            // cout<<s<<" is valid"<<endl;
+            return 0;
+        }
+        else
+        {
+            cout << s << " is invalid" << endl;
+            s.erase(i,1);
+            cout<<"suggestion: "<<s<<endl;
+            return 1;
+        }
+    }
+    else
+    {
+        cout << s << " is Invalid" << endl;
+        char c;
+        for (i = 0; i < s.length(); i++)
+        {
+            if (s[i] >= 65 && s[i] <= 90 || s[i] >= 97 && s[i] <= 122 || s[i] == '_')
+            {
+                c=s[i];
+                break;
+            }
+
+        }
+        char temp;
+        temp=s[0];
+        s[0]=c;
+        s[i]=temp;
+        cout<<"suggestion: "<<s<<endl;
+        
+        return 1;
+    }
+    return 0;
+}
 
 int valvar(string s)
 {
